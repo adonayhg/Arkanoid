@@ -12,6 +12,8 @@ public class SistemaPuntos : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI tiempo;
     private int puntajeActual = 0;
     public int numeroBloques;
+    private int puntuacionMaxima;
+    private int puntos2;
 
     public float tiempoTranscurrido = 0f;
     [SerializeField] TMPro.TextMeshProUGUI textoTiempo;
@@ -42,13 +44,55 @@ public class SistemaPuntos : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        CargarPuntuacionMaxima();
     }
 
-    public void AgregarPuntos(int puntos)
+    public void AgregarPuntos(int puntos, int cantidad)
     {
         puntajeActual += puntos;
+        puntos2 += cantidad;
         ActualizarUI();
+        if (puntos > puntuacionMaxima)
+        {
+            puntuacionMaxima = puntos;
+            GuardarPuntuacionMaxima();
+        }
+        if (puntos2 > puntuacionMaxima)
+        {
+            puntuacionMaxima = puntos;
+            GuardarPuntuacionMaxima();
+        }
     }
+    private void GuardarPuntuacionMaxima()
+    {
+        PlayerPrefs.SetInt("PuntuacionMaxima", puntuacionMaxima);
+        PlayerPrefs.Save();
+    }
+
+    private void CargarPuntuacionMaxima()
+    {
+        if (PlayerPrefs.HasKey("PuntuacionMaxima"))
+        {
+            puntuacionMaxima = PlayerPrefs.GetInt("PuntuacionMaxima");
+        }
+        else
+        {
+            puntuacionMaxima = 0;
+        }
+    }
+
+    public void ResetearPuntuacion()
+    {
+        puntos2 = 0;
+        GuardarPuntuacionMaxima();
+    }
+
+    public int ObtenerPuntuacionMaxima()
+    {
+        return puntuacionMaxima;
+    }
+
 
     private void ActualizarUI()
     {

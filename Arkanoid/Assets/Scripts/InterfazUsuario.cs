@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,6 @@ public class InterfazUsuario : MonoBehaviour
         tiempo.SetActive(false);
         Time.timeScale = 0f;
         popUpElegirNivel.SetActive(false);
-
     }
 
     public void ChangeSlider(float valor)
@@ -68,6 +68,7 @@ public class InterfazUsuario : MonoBehaviour
         tiempo.SetActive(true);
         SistemaPuntos.instancia.EmpezarCronometro();
         Time.timeScale = 1f;
+        MostrarPuntuaciones();
     }
     public void JugarNivelAleatorio()
     {
@@ -113,6 +114,8 @@ public class InterfazUsuario : MonoBehaviour
         arkanoid.SetActive(true);
         Time.timeScale = 0f;
         pausaCorriendo = true;
+        popUpElegirNivel.SetActive(false);
+
     }
 
     public void ReanudarJuego()
@@ -122,5 +125,17 @@ public class InterfazUsuario : MonoBehaviour
         arkanoid.SetActive(false);
         Time.timeScale = 1f;
         pausaCorriendo = false;
+        popUpElegirNivel.SetActive(true);
+
+    }
+
+
+
+    [SerializeField] private TMP_Text textoPuntuacionMaxima;
+
+
+    void MostrarPuntuaciones()
+    {
+        textoPuntuacionMaxima.text = SistemaPuntos.instancia.ObtenerPuntuacionMaxima().ToString();
     }
 }

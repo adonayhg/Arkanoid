@@ -27,7 +27,7 @@ public class Bloques : MonoBehaviour
              if (golpesActuales >= golpesNecesarios)
              {
                      RecibirGolpe();
-                     SistemaPuntos.instancia.AgregarPuntos(puntosPorBloque);
+                     SistemaPuntos.instancia.AgregarPuntos(puntosPorBloque,puntosPorBloque);
                      SistemaPuntos.instancia.DestruirBloques();
              }
          }
